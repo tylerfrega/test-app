@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import Axios from 'axios';
 import LoginForm from "../forms/LoginForm";
 
 
@@ -8,7 +8,9 @@ import LoginForm from "../forms/LoginForm";
 class LoginPage extends React.Component{
 
     submit(data){
-        console.log(data)
+        Axios.post('/user/register', data).then(function(res){
+            console.log(res);
+        })
     }
 
 

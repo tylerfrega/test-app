@@ -7,8 +7,11 @@ import InlineError from '../messages/InlineError';
 class LoginForm extends React.Component{
     state = {
         data:{
+            name:"",
             email: "",
-            password: ""
+            username:"",
+            password: "",
+            password2:""
         },
         loding: false,
         errors:{}
@@ -30,7 +33,7 @@ class LoginForm extends React.Component{
 
     validate = (data) => {
         const errors = {}
-        if(!Validator.isEmail(data.email)) errors.email = "Invalid email";
+       // if(!Validator.isEmail(data.email)) errors.email = "Invalid email";
         if(!data.password) errors.password = "Cant be blank";
         return errors;
     }
@@ -41,8 +44,19 @@ class LoginForm extends React.Component{
         return(
             <Form onSubmit={this.onSubmit}>
                 <Form.Field error={!!errors.email}>
+                    <lable htmlFor="name">Name</lable>
+                    <input type="text" 
+                           id="name"
+                           name="name"
+                           placeholder="turd beasly"
+                           value={data.name}
+                           onChange={this.onChange}
+                    />
+                    {errors.email && <InlineError text={errors.email} />}
+                </Form.Field>
+                <Form.Field error={!!errors.email}>
                     <lable htmlFor="email">Email</lable>
-                    <input type="email" 
+                    <input type="text" 
                            id="email"
                            name="email"
                            placeholder="example@example.com"
@@ -62,6 +76,30 @@ class LoginForm extends React.Component{
                     />
                     {errors.password && <InlineError text={errors.password} />}
                 </Form.Field>
+                
+                <Form.Field error={!!errors.email}>
+                    <lable htmlFor="username">User Name</lable>
+                    <input type="text" 
+                           id="username"
+                           name="username"
+                           placeholder="dickhead"
+                           value={data.username}
+                           onChange={this.onChange}
+                    />
+                    {errors.email && <InlineError text={errors.email} />}
+                </Form.Field>
+                <Form.Field error={!!errors.password}>
+                    <lable htmlFor="password">Confirm Password</lable>
+                    <input type="password2"
+                           name="password2" 
+                           id="password2"
+                           placeholder="make it secure"
+                           value={data.password2}
+                           onChange={this.onChange}
+                    />
+                    {errors.password && <InlineError text={errors.password} />}
+                </Form.Field>
+                
                 <Button primary>Login</Button>
             </Form>
         )
