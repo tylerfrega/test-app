@@ -1,16 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import Axios from 'axios';
 import LoginForm from "../forms/LoginForm";
 
 
 
 class LoginPage extends React.Component{
-
-    submit(data){
-        Axios.post('/user/register', data).then(function(res){
-            console.log(res);
-        })
+constructor(props){
+    super(props);
+    console.log(props)
+    this.submitUserData = this.submitUserData.bind(this)
+    
+}
+ 
+   submitUserData(data){
+       this.props.loginUser(data)
     }
 
 
@@ -18,7 +22,7 @@ class LoginPage extends React.Component{
         return(
         <div>
             <h1>Login Page</h1>
-            <LoginForm submit={this.submit} />
+            <LoginForm submit={this.submitUserData} />
         </div>
         )
     }

@@ -7,11 +7,8 @@ import InlineError from '../messages/InlineError';
 class LoginForm extends React.Component{
     state = {
         data:{
-            name:"",
-            email: "",
             username:"",
             password: "",
-            password2:""
         },
         loding: false,
         errors:{}
@@ -28,12 +25,12 @@ class LoginForm extends React.Component{
 
         if(Object.keys(errors).length === 0){
             this.props.submit(this.state.data);
-        }
+        }else{console.log(errors)}
     };
 
     validate = (data) => {
         const errors = {}
-       // if(!Validator.isEmail(data.email)) errors.email = "Invalid email";
+        if(!data.username) errors.username = "Cant be blank";
         if(!data.password) errors.password = "Cant be blank";
         return errors;
     }
@@ -43,28 +40,21 @@ class LoginForm extends React.Component{
         const { data, errors} = this.state;
         return(
             <Form onSubmit={this.onSubmit}>
-                <Form.Field error={!!errors.email}>
-                    <lable htmlFor="name">Name</lable>
+
+                <Form.Field error={!!errors.username}>
+                    <lable htmlFor="username">User Name</lable>
                     <input type="text" 
-                           id="name"
-                           name="name"
-                           placeholder="turd beasly"
-                           value={data.name}
+                           id="username"
+                           name="username"
+                           placeholder="name"
+                           value={data.username}
                            onChange={this.onChange}
                     />
-                    {errors.email && <InlineError text={errors.email} />}
+                    {errors.username && <InlineError text={errors.username} />}
                 </Form.Field>
-                <Form.Field error={!!errors.email}>
-                    <lable htmlFor="email">Email</lable>
-                    <input type="text" 
-                           id="email"
-                           name="email"
-                           placeholder="example@example.com"
-                           value={data.email}
-                           onChange={this.onChange}
-                    />
-                    {errors.email && <InlineError text={errors.email} />}
-                </Form.Field>
+                
+               
+        
                 <Form.Field error={!!errors.password}>
                     <lable htmlFor="password">Password</lable>
                     <input type="password"
@@ -72,29 +62,6 @@ class LoginForm extends React.Component{
                            id="password"
                            placeholder="make it secure"
                            value={data.password}
-                           onChange={this.onChange}
-                    />
-                    {errors.password && <InlineError text={errors.password} />}
-                </Form.Field>
-                
-                <Form.Field error={!!errors.email}>
-                    <lable htmlFor="username">User Name</lable>
-                    <input type="text" 
-                           id="username"
-                           name="username"
-                           placeholder="dickhead"
-                           value={data.username}
-                           onChange={this.onChange}
-                    />
-                    {errors.email && <InlineError text={errors.email} />}
-                </Form.Field>
-                <Form.Field error={!!errors.password}>
-                    <lable htmlFor="password">Confirm Password</lable>
-                    <input type="password2"
-                           name="password2" 
-                           id="password2"
-                           placeholder="make it secure"
-                           value={data.password2}
                            onChange={this.onChange}
                     />
                     {errors.password && <InlineError text={errors.password} />}

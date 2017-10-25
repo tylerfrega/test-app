@@ -50,6 +50,7 @@ router.post('/register', function(req,res){
         User.createUser(newUser, function(err, user){
             if(err) throw err;
             console.log(user);
+            res.json(user)
         });
        // req.flash('success_msg', 'You are Registered and can now login');
         //res.redirect('/user/login');
@@ -78,6 +79,7 @@ passport.use(new LocalStrategy(
 
     passport.serializeUser(function(user, done) {
         var sessionUser = {id:user.id, name: user.name, email: user.email}
+       // console.log(sessionUser)
       done(null, sessionUser);
     });
     
@@ -91,11 +93,24 @@ passport.use(new LocalStrategy(
       
       });   
 
-router.post('/login', passport.authenticate('local', {successRedirect:'/', failureRedirect:'/user/login', failureFlash: true}), 
-    function(req, res){
-        res.redirect('/');
+router.post('/login', passport.authenticate('local'),
 
-});
+function(req,res){
+    if(req.user){
+        res.json(req.user.id)
+    }
+    console.log(req.user);
+})
+
+
+
+
+// , {successRedirect:'/', failureRedirect:'/user/login', failureFlash: true}), 
+//     function(req, res){
+//         //res.redirect('/');
+//         console.log
+
+// });
 
 
 
