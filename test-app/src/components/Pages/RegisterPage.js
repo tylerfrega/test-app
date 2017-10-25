@@ -8,12 +8,14 @@ import RegisterForm from "../forms/RegisterForm";
 class RegisterPage extends React.Component{
 
     componentDidMount(){
-        //console.log(this.props);
+        console.log(this.props);
     }
-    submit(data){
+    submit(data, cb){
+
+
         Axios.post('/user/register', data).then(function(res){
             console.log(res);
-            //this.props.setCurrentUser(res);
+            cb(res);
         })
     }
 
@@ -22,7 +24,7 @@ class RegisterPage extends React.Component{
         return(
         <div>
             <h1>Register Page</h1>
-            <RegisterForm submit={this.submit} />
+            <RegisterForm submit={this.submit} setUser={this.props.setCurrentUser} />
         </div>
         )
     }
