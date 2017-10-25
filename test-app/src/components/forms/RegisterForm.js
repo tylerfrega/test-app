@@ -25,9 +25,11 @@ class RegisterForm extends React.Component{
     onSubmit = e =>{
         const errors = this.validate(this.state.data);  
         this.setState({ errors }); 
-
+        const cbUser = this.props.setUser;
+        console.log(cbUser);
         if(Object.keys(errors).length === 0){
-            this.props.submit(this.state.data);
+            this.props.submit(this.state.data, cbUser);
+            
         }
     };
 
